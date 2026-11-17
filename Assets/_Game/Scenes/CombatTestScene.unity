@@ -685,6 +685,7 @@ MonoBehaviour:
   cameraCollisionLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  stanceCameraSpeed: 6
 --- !u!114 &870175550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,6 +702,15 @@ MonoBehaviour:
   sprintSpeed: 7
   jumpHeight: 1.1
   gravity: -20
+  crouchHeight: 1.2
+  crouchSpeed: 2.3
+  stanceChangeSpeed: 5
+  standingObstacleLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  slideDuration: 0.65
+  slideStartSpeed: 9
+  slideEndSpeed: 3
 --- !u!114 &870175551
 MonoBehaviour:
   m_ObjectHideFlags: 0

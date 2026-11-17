@@ -20,6 +20,7 @@ namespace BeatlesBattle.Player
         public Vector2 Look => lookAction?.ReadValue<Vector2>() ?? Vector2.zero;
         public bool SprintHeld => sprintAction != null && sprintAction.IsPressed();
         public bool CrouchHeld => crouchAction != null && crouchAction.IsPressed();
+        public bool CrouchPressed => crouchAction != null && crouchAction.WasPressedThisFrame();
         public bool JumpPressed => jumpAction != null && jumpAction.WasPressedThisFrame();
         public bool PerspectivePressed => switchPerspectiveAction != null && switchPerspectiveAction.WasPressedThisFrame();
 

@@ -17,15 +17,20 @@ namespace BeatlesBattle.CameraSystem
         [SerializeField] private Vector3 thirdPersonOffset = new Vector3(0.45f, 1.55f, -3f);
         [SerializeField, Min(0.01f)] private float cameraCollisionRadius = 0.2f;
         [SerializeField] private LayerMask cameraCollisionLayers = ~0;
+        [SerializeField, Min(0.1f)] private float stanceCameraSpeed = 6f;
 
         private PlayerInputHandler input;
+        private PlayerMovement movement;
         private float pitch;
+        private float currentEyeHeight;
         private bool thirdPerson = true;
         private readonly RaycastHit[] cameraHits = new RaycastHit[16];
 
         private void Awake()
         {
             input = GetComponent<PlayerInputHandler>();
+            movement = GetComponent<PlayerMovement>();
+            currentEyeHeight = eyeHeight;
             if (playerCamera == null)
                 Debug.LogError("Assign Main Camera to PlayerCameraController.", this);
         }
@@ -79,8 +84,14 @@ namespace BeatlesBattle.CameraSystem
             if (playerCamera == null)
                 return;
 
+            float targetEyeHeight = movement != null
+                ? Mathf.Min(eyeHeight, movement.CurrentHeight - 0.15f)
+                : eyeHeight;
+            currentEyeHeight = Mathf.MoveTowards(currentEyeHeight, targetEyeHeight,
+                stanceCameraSpeed * Time.deltaTime);
+
             Quaternion lookRotation = transform.rotation * Quaternion.Euler(pitch, 0f, 0f);
-            Vector3 target = transform.position + Vector3.up * eyeHeight;
+            Vector3 target = transform.position + Vector3.up * currentEyeHeight;
             Vector3 desired = thirdPerson
                 ? target + lookRotation * new Vector3(thirdPersonOffset.x, thirdPersonOffset.y - eyeHeight, thirdPersonOffset.z)
                 : target;

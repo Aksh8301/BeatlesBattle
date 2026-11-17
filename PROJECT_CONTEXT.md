@@ -15,7 +15,7 @@
 ## Approved design direction
 - **Visuals:** Semi-realistic, medium-quality baseline with scalable Low / Medium / High presets (planned, not yet configured).
 - **Combat:** Hybrid tactical gunplay and responsive modern military movement.
-- **Perspectives:** Switchable first-person / third-person view during gameplay (planned key: V).
+- **Perspectives:** Switchable first-person / third-person view during gameplay (V key); basic prototype implemented on the feature branch and user-tested in Play Mode.
 - **Online multiplayer:** Up to 10v10 (20 combatants); dedicated authoritative server architecture planned using Unity Netcode for GameObjects (NGO).
 - **Offline battles:** Configurable matches against AI bots, targeting 10v10 capacity.
 - **Campaign:** Single-player modern military special-forces story with missions, allied/enemy AI, objectives and checkpoints.
@@ -24,7 +24,7 @@
 
 ## Scope and milestone strategy
 1. **Foundation:** Unity scene, repository, project layout, input baseline.
-2. **Controller prototype:** CharacterController-based movement, mouse look, FPS/TPS camera switching.
+2. **Controller prototype:** CharacterController-based movement, mouse look, FPS/TPS camera switching — basic version implemented and user-tested on feature branch; further polish pending.
 3. **Combat prototype:** Aiming, shooting, recoil, reload, health/damage.
 4. **Vertical slice:** One polished level/mission, friendly and enemy AI, mission loop.
 5. **Offline battles:** Team match rules, bots, difficulty, performance tests.
@@ -45,7 +45,10 @@ These are development goals, not completed features or delivery promises. Prefer
 
 ## Current status (2026-11-17)
 - Unity foundation, test scene, ground and player capsule created and pushed to GitHub.
-- The first FPS/TPS controller has been **proposed but not implemented**.
+- **FPS/TPS controller V1 implemented on `feature/fps-tps-controller-v1` (draft PR #1), not yet merged into `main`.** Scripts: `Assets/_Game/Scripts/Player/PlayerInputHandler.cs`, `PlayerMovement.cs`, and `Assets/_Game/Scripts/Camera/PlayerCameraController.cs`.
+- `CombatTestScene.unity` on the feature branch connects the components to `PlayerPlaceholder`; its Capsule Collider is disabled and CharacterController is enabled, with input and camera references assigned.
+- **User-reported Unity Play Mode tests passed:** WASD movement (especially FPS), sprint with Left Shift, jump with Space, mouse look in both perspectives, and V to switch FPS/TPS. Unity Console was reported empty before testing.
+- **Not yet verified:** crouch, slide, vault, complete camera collision/occlusion behavior, robust multiplayer handling, automated tests, and standalone build. TPS can visually appear stationary because the camera follows the player; camera pitch was noted as needing polish.
 - Low/Medium/High quality presets, combat, campaign logic, bots, and networking are **planned**, not implemented or tested.
 - The repository was reported as **public** at the last check. Recheck visibility before uploading proprietary commercial material.
 

@@ -13,18 +13,25 @@
 - Verified core repository files, Unity version and package manifest via GitHub.
 - Confirmed Git ignore rules for Unity-generated files.
 
-**Not yet implemented**
-- No playable FPS/TPS movement or camera scripts verified.
-- No shooting/damage system, AI bots, campaign gameplay, online networking, or quality-presets implementation verified.
-- Unity play-mode tests and build validation have not been run as part of this review.
+**Not implemented in foundation milestone**
+- At the time of initial foundation review, player movement/camera scripts, combat, AI bots, campaign gameplay, online networking, and quality presets were not verified. The subsequent controller milestone is documented below.
 
-## Next proposed milestone — Player controller (approval required)
-1. Review existing Input System actions and scene references before writing code.
-2. Propose a small modular design for player input, CharacterController movement and camera.
-3. Implement WASD, mouse look, jump and FPS/TPS toggle first.
-4. Verify grounding/collision, camera clipping and Unity Console output in play mode.
-5. Add sprint/crouch/slide only after the basics work.
-6. Review Git diff, then commit and push only with approval.
+## 2026-11-17 — FPS/TPS controller V1 prototype
+**Status: Implemented and user-tested in Unity; awaiting review and merge**
+- **Branch:** `feature/fps-tps-controller-v1`
+- **Draft PR:** https://github.com/Aksh8301/BeatlesBattle/pull/1
+- **Files changed:** Added `PlayerInputHandler.cs`, `PlayerMovement.cs`, `PlayerCameraController.cs` and their Unity `.meta` files; configured `Assets/_Game/Scenes/CombatTestScene.unity`.
+- **Implemented:** Existing `InputSystem_Actions` reused; local WASD movement, Shift sprint, Space jump, mouse look, V FPS/TPS switching, and prototype third-person camera obstruction handling.
+- **Scene setup:** `PlayerPlaceholder` uses CharacterController (Capsule Collider disabled), three scripts attached, Input Actions assigned, Main Camera and player mesh references assigned.
+- **Tests performed (user-reported Unity Play Mode):** WASD moves the player; FPS movement works; V switches perspectives; jumping works; sprinting works; mouse look works in both modes. Unity Console was reported empty before testing.
+- **Git verification:** User committed and pushed the modified scene to the feature branch; remote scene inspected and controller components confirmed. PR remains draft; `main` has not been merged.
+- **Remaining issues:** Crouch/slide/vault not implemented; camera pitch/framing and third-person wall occlusion need further validation; no standalone build, automated tests, networking, or multiplayer authority validation yet.
+
+## Next proposed milestone — Controller polish and PR merge (approval required)
+1. Review the documentation updates and final PR diff.
+2. Obtain explicit approval before merging the tested V1 feature into `main`.
+3. After merge, pull `main` locally and verify the Unity scene opens.
+4. Plan crouch, slide, vault, camera refinement and broader collision tests in a separate milestone.
 
 ## Issue / caution
 - An existing folder `Assets/_Game/Scenes/CombatTest/` has a similar name to the real scene file `CombatTestScene.unity`. Avoid confusing the two.

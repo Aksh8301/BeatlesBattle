@@ -21,6 +21,7 @@ namespace BeatlesBattle.CameraSystem
         private PlayerInputHandler input;
         private float pitch;
         private bool thirdPerson = true;
+        private readonly RaycastHit[] cameraHits = new RaycastHit[16];
 
         private void Awake()
         {
@@ -88,11 +89,21 @@ namespace BeatlesBattle.CameraSystem
             {
                 Vector3 delta = desired - target;
                 float distance = delta.magnitude;
-                if (distance > 0.001f && Physics.SphereCast(target, cameraCollisionRadius, delta / distance,
-                        out RaycastHit hit, distance, cameraCollisionLayers, QueryTriggerInteraction.Ignore)
-                    && !hit.collider.transform.IsChildOf(transform))
+                if (distance > 0.001f)
                 {
-                    desired = target + delta.normalized * Mathf.Max(0f, hit.distance - cameraCollisionRadius);
+                    Vector3 direction = delta / distance;
+                    int hitCount = Physics.SphereCastNonAlloc(target, cameraCollisionRadius, direction,
+                        cameraHits, distance, cameraCollisionLayers, QueryTriggerInteraction.Ignore);
+                    float nearest = distance;
+                    for (int i = 0; i < hitCount; i++)
+                    {
+                        // Never collide the camera with the player's own body.
+                        if (cameraHits[i].collider.transform.IsChildOf(transform))
+                            continue;
+                        nearest = Mathf.Min(nearest, cameraHits[i].distance);
+                    }
+                    if (nearest < distance)
+                        desired = target + direction * Mathf.Max(0f, nearest - cameraCollisionRadius);
                 }
             }
 

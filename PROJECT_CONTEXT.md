@@ -15,7 +15,7 @@
 ## Approved design direction
 - **Visuals:** Semi-realistic, medium-quality baseline with scalable Low / Medium / High presets (planned, not yet configured).
 - **Combat:** Hybrid tactical gunplay and responsive modern military movement.
-- **Perspectives:** Switchable first-person / third-person view during gameplay (V key); basic prototype implemented on the feature branch and user-tested in Play Mode.
+- **Perspectives:** Switchable first-person / third-person view during gameplay (V key); basic prototype merged into `main` via PR #1 and user-tested in Play Mode.
 - **Online multiplayer:** Up to 10v10 (20 combatants); dedicated authoritative server architecture planned using Unity Netcode for GameObjects (NGO).
 - **Offline battles:** Configurable matches against AI bots, targeting 10v10 capacity.
 - **Campaign:** Single-player modern military special-forces story with missions, allied/enemy AI, objectives and checkpoints.
@@ -24,7 +24,7 @@
 
 ## Scope and milestone strategy
 1. **Foundation:** Unity scene, repository, project layout, input baseline.
-2. **Controller prototype:** CharacterController-based movement, mouse look, FPS/TPS camera switching — basic version implemented and user-tested on feature branch; further polish pending.
+2. **Controller prototype:** CharacterController-based movement, mouse look, FPS/TPS camera switching — V1 implemented, tested, and merged into `main` via PR #1; crouch/slide changes on `feature/crouch-slide` in PR #2, pending merge.
 3. **Combat prototype:** Aiming, shooting, recoil, reload, health/damage.
 4. **Vertical slice:** One polished level/mission, friendly and enemy AI, mission loop.
 5. **Offline battles:** Team match rules, bots, difficulty, performance tests.
@@ -45,10 +45,14 @@ These are development goals, not completed features or delivery promises. Prefer
 
 ## Current status (2026-11-17)
 - Unity foundation, test scene, ground and player capsule created and pushed to GitHub.
-- **FPS/TPS controller V1 implemented on `feature/fps-tps-controller-v1` (draft PR #1), not yet merged into `main`.** Scripts: `Assets/_Game/Scripts/Player/PlayerInputHandler.cs`, `PlayerMovement.cs`, and `Assets/_Game/Scripts/Camera/PlayerCameraController.cs`.
-- `CombatTestScene.unity` on the feature branch connects the components to `PlayerPlaceholder`; its Capsule Collider is disabled and CharacterController is enabled, with input and camera references assigned.
-- **User-reported Unity Play Mode tests passed:** WASD movement (especially FPS), sprint with Left Shift, jump with Space, mouse look in both perspectives, and V to switch FPS/TPS. Unity Console was reported empty before testing.
-- **Not yet verified:** crouch, slide, vault, complete camera collision/occlusion behavior, robust multiplayer handling, automated tests, and standalone build. TPS can visually appear stationary because the camera follows the player; camera pitch was noted as needing polish.
+- **FPS/TPS controller V1 merged into `main`** through [PR #1](https://github.com/Aksh8301/BeatlesBattle/pull/1). Scripts: `Assets/_Game/Scripts/Player/PlayerInputHandler.cs`, `PlayerMovement.cs`, and `Assets/_Game/Scripts/Camera/PlayerCameraController.cs`.
+- `CombatTestScene.unity` connects the components to `PlayerPlaceholder`; its Capsule Collider is disabled and CharacterController is enabled, with input and camera references assigned.
+- **User-reported Unity Play Mode tests passed (V1):** WASD movement, sprint with Left Shift, jump with Space, mouse look in both perspectives, and V to switch FPS/TPS.
+- **Crouch & slide V1 implemented and user-tested on `feature/crouch-slide`**; [PR #2](https://github.com/Aksh8301/BeatlesBattle/pull/2) is open, ready for review, and **not yet merged into `main`**.
+- Crouch uses the existing C action, adjusts CharacterController height to about 1.2 m, and slows movement; sprint-forward + C initiates a short slide. Camera stance height transitions smoothly. No animation assets have been integrated.
+- **User-reported Unity Play Mode tests passed (crouch/slide):** C crouches, releasing C restores standing height (2 m) when clear; sliding works while sprinting; under a temporary test ceiling, releasing C keeps the controller at 1.2 m, then height returns to 2 m after exiting the overhead obstacle.
+- `TestCeiling` was temporary test geometry and was removed after testing. `CombatTestScene.unity` was included in the crouch/slide branch commit for camera stance settings; the PR includes four modified files.
+- **Remaining work/limits:** Standing clearance was checked with one simple ceiling only, not exhaustively; additional collider edge cases, camera framing/occlusion polish, crouch/slide animations, vaulting, automated tests, standalone build, and networking validation remain.
 - Low/Medium/High quality presets, combat, campaign logic, bots, and networking are **planned**, not implemented or tested.
 - The repository was reported as **public** at the last check. Recheck visibility before uploading proprietary commercial material.
 

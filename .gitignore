@@ -9,6 +9,9 @@
 /[Mm]emoryCaptures/
 /[Rr]ecordings/
 
+# Temporary third-party assets - never upload to GitHub
+/Assets/_Game/Art/ThirdPartyTemp/
+
 # IDE files
 .vs/
 .vscode/

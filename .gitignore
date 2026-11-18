@@ -11,6 +11,7 @@
 
 # Temporary third-party assets - never upload to GitHub
 /Assets/_Game/Art/ThirdPartyTemp/
+/Assets/_Game/Art/ThirdPartyTemp.meta
 
 # IDE files
 .vs/

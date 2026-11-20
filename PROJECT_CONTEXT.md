@@ -49,12 +49,17 @@ These are development goals, not completed features or delivery promises. Prefer
 - `CombatTestScene.unity` connects the components to `PlayerPlaceholder`; its Capsule Collider is disabled and CharacterController is enabled, with input and camera references assigned.
 - **User-reported Unity Play Mode tests passed (V1):** WASD movement, sprint with Left Shift, jump with Space, mouse look in both perspectives, and V to switch FPS/TPS.
 - **Crouch & slide V1 implemented and user-tested on `feature/crouch-slide`**; [PR #2](https://github.com/Aksh8301/BeatlesBattle/pull/2) is open, ready for review, and **not yet merged into `main`**.
-- Crouch uses the existing C action, adjusts CharacterController height to about 1.2 m, and slows movement; sprint-forward + C initiates a short slide. Camera stance height transitions smoothly. No animation assets have been integrated.
+- Crouch uses the existing C action, adjusts CharacterController height to about 1.2 m, and slows movement; sprint-forward + C initiates a short slide. Camera stance height transitions smoothly. Soldier animations were subsequently integrated locally during Soldier Animation V1; temporary third-party assets remain excluded from Git.
 - **User-reported Unity Play Mode tests passed (crouch/slide):** C crouches, releasing C restores standing height (2 m) when clear; sliding works while sprinting; under a temporary test ceiling, releasing C keeps the controller at 1.2 m, then height returns to 2 m after exiting the overhead obstacle.
 - `TestCeiling` was temporary test geometry and was removed after testing. `CombatTestScene.unity` was included in the crouch/slide branch commit for camera stance settings; the PR includes four modified files.
 - **Remaining work/limits:** Standing clearance was checked with one simple ceiling only, not exhaustively; additional collider edge cases, camera framing/occlusion polish, crouch/slide animations, vaulting, automated tests, standalone build, and networking validation remain.
 - Low/Medium/High quality presets, combat, campaign logic, bots, and networking are **planned**, not implemented or tested.
 - The repository was reported as **public** at the last check. Recheck visibility before uploading proprietary commercial material.
+- **Soldier Animation V1 completed and user-tested locally (2026-11-20).** Idle, walk, sprint, crouch idle/walk, slide, and Rifle Jump are driven by `PlayerAnimationController.cs`. FPS/TPS soldier visibility is handled by `PlayerCameraController.cs`.
+- **Git:** Commit `8c76ba9` pushed to `feature/soldier-animation-v1`; draft PR #3 targets `main`, pending review and merge approval.
+- **Local-only dependencies:** `SoldierAnimator.controller`, temporary Mixamo character/animation assets, and `SoldierAnimationTestScene` are excluded from Git. The tracked `CombatTestScene.unity` was restored to its portable version. Fresh clones require separately supplied, appropriately licensed animation assets and Animator/Inspector setup.
+- **Tests (user-reported Unity Play Mode):** Walking, sprinting, crouching, sliding, jumping, landing transitions, and FPS/TPS switching work. No automated tests or standalone build verification were performed.
+
 
 ## Collaboration rules
 - Inspect only relevant files, reuse what is already known, and review existing code before suggesting changes.

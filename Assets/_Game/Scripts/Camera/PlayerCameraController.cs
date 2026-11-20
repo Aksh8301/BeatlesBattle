@@ -9,6 +9,11 @@ namespace BeatlesBattle.CameraSystem
     {
         [SerializeField] private Camera playerCamera;
         [SerializeField] private Renderer playerVisual;
+        [SerializeField] private Transform characterVisualRoot;
+
+        private Renderer[] characterRenderers;
+
+
         [Header("Look")]
         [SerializeField, Min(0.01f)] private float mouseSensitivity = 0.12f;
         [SerializeField, Range(30f, 89f)] private float maxPitch = 80f;
@@ -31,6 +36,14 @@ namespace BeatlesBattle.CameraSystem
             input = GetComponent<PlayerInputHandler>();
             movement = GetComponent<PlayerMovement>();
             currentEyeHeight = eyeHeight;
+
+            if (playerVisual != null)
+                playerVisual.enabled = false;
+
+            if (characterVisualRoot != null)
+                characterRenderers =
+                    characterVisualRoot.GetComponentsInChildren<Renderer>(true);
+
             if (playerCamera == null)
                 Debug.LogError("Assign Main Camera to PlayerCameraController.", this);
         }
@@ -45,8 +58,15 @@ namespace BeatlesBattle.CameraSystem
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            if (playerVisual != null)
-                playerVisual.enabled = true;
+
+            if (characterRenderers != null)
+            {
+                foreach (Renderer renderer in characterRenderers)
+                {
+                    if (renderer != null)
+                        renderer.enabled = true;
+                }
+            }
         }
 
         private void Update()
@@ -75,8 +95,17 @@ namespace BeatlesBattle.CameraSystem
             if (input.PerspectivePressed)
                 thirdPerson = !thirdPerson;
 
-            if (playerVisual != null)
-                playerVisual.enabled = thirdPerson;
+            if (playerVisual != null && playerVisual.enabled)
+                playerVisual.enabled = false;
+
+            if (characterRenderers != null)
+            {
+                foreach (Renderer renderer in characterRenderers)
+                {
+                    if (renderer != null && renderer.enabled != thirdPerson)
+                        renderer.enabled = thirdPerson;
+                }
+            }
         }
 
         private void LateUpdate()

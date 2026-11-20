@@ -39,7 +39,22 @@
 - **Git checks:** `git diff --check` passed with no whitespace errors; Git displayed an LF-to-CRLF line-ending warning for the Unity scene. Four changed files were committed and pushed, and PR #2 was created.
 - **Not verified:** Other overhead shapes and edge cases, detailed slide collisions and slopes, full camera occlusion, animations, automated tests, and builds.
 
-## Next proposed milestone — Review and merge PR #2 (approval required)
+## 2026-11-20 — Soldier Animation V1
+**Status: Completed and user-tested locally; draft PR #3 pending review and merge approval**
+
+- **Branch:** `feature/soldier-animation-v1`
+- **Commit:** `8c76ba9`
+- **PR:** https://github.com/Aksh8301/BeatlesBattle/pull/3
+- **Committed files:** `PlayerCameraController.cs`, `PlayerAnimationController.cs`, and its `.meta`.
+- **Implemented:** Soldier visibility switching for FPS/TPS; Animator parameters for speed, crouching, sliding, and jumping.
+- **Local Animator:** Idle, walking, sprinting, crouching, sliding, and Rifle Jump, with transitions configured.
+- **User-reported tests:** Movement animations, slide recovery, jump and landing, and FPS/TPS switching working in Unity Play Mode.
+- **Asset policy:** Temporary third-party character/animation files remain excluded from Git. The Mixamo-dependent Animator Controller and working SoldierAnimationTestScene remain local.
+- **Portable scene:** Restored tracked `CombatTestScene.unity` to avoid references to ignored temporary assets.
+- **Git verification:** Three files committed and pushed; draft PR #3 created with no reported conflicts.
+- **Remaining:** A distributable or original soldier/animation setup, additional animation polish, automated tests, standalone builds, and multiplayer validation.
+
+## Next proposed milestone — Review pending pull requests (approval required)
 1. Review this documentation update and final [PR #2 diff](https://github.com/Aksh8301/BeatlesBattle/pull/2/files).
 2. Obtain explicit user approval before merging into `main`.
 3. After merge, switch VS Code to `main` and pull updates.
